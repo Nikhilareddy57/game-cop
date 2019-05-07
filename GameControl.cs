@@ -8,7 +8,7 @@ public class GameControl : MonoBehaviour
     public GameObject gameOverText;
     //public float scrollSpeed = -5f;
     public bool pause = true;
-    public bool hasLife = true;
+    public bool hasLife = true, accident = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +29,15 @@ public class GameControl : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
+           // Debug.Log("1");
             pause = !pause;
         }
-        //Debug.Log(pause);
+        if (!hasLife)
+        {
+            LifeOver();
+            pause = true;
+        }    
+       // Debug.Log(pause);
     }
 
     public void LifeOver()

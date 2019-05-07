@@ -5,30 +5,37 @@ using UnityEngine;
 public class stateControl : MonoBehaviour
 {
     static Animator anim;
-    // Start is called before the first frame update
+    private GameControl gc;
+
     void Start()
     {
-        anim = GetComponent<Animator>();
+        gc = GameObject.Find("GameController").GetComponent<GameControl>();
+        anim = GetComponent<Animator>();//Debug.Log("3");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey("up"))
+        //anim.SetBool("isIdle", true);
+       if(Input.GetKey("up"))
+       {
+          anim.SetTrigger("jumping");
+       }
+       if (gc.pause)
+       {
+          anim.SetBool("isIdle", true);//anim.SetBrigger("isIdle");anim.SetTrigger("isIdle");/
+       // anim.SetBool("isRunning", false);
+       }
+       else
+       {
+          anim.SetBool("isIdle", false);
+       //  anim.SetBool("isRunning", true);
+       }
+       if(gc.accident)
         {
-            anim.SetTrigger("jumping");
+            anim.SetBool("accident", true);
         }
-        if (GameControl.instance.pause)
-        {
-            anim.SetBool("isIdle", true);//anim.SetBrigger("isIdle");anim.SetTrigger("isIdle");/
-           // anim.SetBool("isRunning", false);
-        }
-        else
-        {
-            anim.SetBool("isIdle", false);
-          //  anim.SetBool("isRunning", true);
-        }
-           // anim.SetTrigger("isRunning");//SetBool("isRunning");//setTrigger("isRunning");
+                                         // anim.SetTrigger("isRunning");//SetBool("isRunning");//setTrigger("isRunning");
     }
 }
 //Input.GetButtonDown("Jump")

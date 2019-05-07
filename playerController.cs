@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
+    //public static playerController playerCont;
     public float speed = 0.00000000000001f;
 
     private Rigidbody player;
@@ -12,11 +13,19 @@ public class playerController : MonoBehaviour
     private int laneInt = 0, newLane = 0, score =0;
     private Vector3 offset = Vector3.zero ;
     public Text scoreText;
+    private GameControl gc;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+       // if(playerCont == null)
+        //{
+        //    playerCont = (playerController)Instantiate(this);
+        //}
+        gc = GameObject.Find("GameController").GetComponent<GameControl>();
+
         player = GetComponent<Rigidbody>();
         score = 0;
         setScoreText();
@@ -139,14 +148,30 @@ public class playerController : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {   
-        if(other.gameObject.CompareTag("Bio"))
+    {
+        if(other.gameObject.CompareTag("Cars"))
+        {
+            gc.accident = true;
+            gc.hasLife = false;
+        }
+        else if (other.gameObject.CompareTag("Bio"))
+        {
+            other.gameObject.SetActive(false);
+            score += 2;
+            setScoreText();
+        }
+        else if(other.gameObject.CompareTag("NonBio"))
         {
             other.gameObject.SetActive(false);
             score += 1;
             setScoreText();
         }
-            
+        else if (other.gameObject.CompareTag("Harmful"))
+        {
+            other.gameObject.SetActive(false);
+            score += 3;
+            setScoreText();
+        }
     }
 
     void setScoreText()

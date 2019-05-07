@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class repeatingBackground : MonoBehaviour
 {
-    private BoxCollider groundCollider;
+    //private BoxCollider groundCollider;
     private float groundLength = 80; 
     // Start is called before the first frame update
     void Start()
     {
-        groundCollider = GetComponent<BoxCollider>();
+       // groundCollider = GetComponent<BoxCollider>();
         //groundLength = groundCollider.size.x;
     }
 
